@@ -81,9 +81,9 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = None
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'condomonk',
-        'USER': 'condomonk_admin',
-        'PASSWORD': 'condomonkadminpassword',
+        'NAME': 'dolphy',
+        'USER': 'dolphy_admin',
+        'PASSWORD': 'dolphyadminpassword',
         'HOST': 'localhost',
         'PORT': '',
     }
