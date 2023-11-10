@@ -76,7 +76,7 @@ class PreConstruction(models.Model):
         return self.project_name + " [ " + self.city.name+" ] "
 
     class Meta:
-        ordering = ('-status','-last_updated')
+        ordering = ('status','-last_updated')
 
 
 class PreConstructionImage(models.Model):
