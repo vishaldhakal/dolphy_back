@@ -1,9 +1,8 @@
 from django.db import models
 from django_summernote.fields import SummernoteTextField
 from accounts.models import Agent
-from django.utils.text import slugify
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
+from django.db.models import Case, When, Value, IntegerField
+
 
 
 class Developer(models.Model):
@@ -73,21 +72,20 @@ class PreConstruction(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
 
-    @property
-    def status_order(self):
-        # Define the custom order for the 'status' field
-        order_mapping = {
-            "Selling": 1,
-            "Upcoming": 2,
-            "Sold out": 3,
-        }
-        return order_mapping.get(self.status, 4)
-
     def __str__(self):
         return self.project_name + " [ " + self.city.name+" ] "
 
     class Meta:
-        ordering = ('status_order','-last_updated')
+        ordering = [
+            Case(
+                When(status="Selling", then=Value(1)),
+                When(status="Upcoming", then=Value(2)),
+                When(status="Sold out", then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField(),
+            ),
+            '-last_updated',
+        ]
 
 
 class PreConstructionImage(models.Model):
