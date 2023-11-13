@@ -212,9 +212,26 @@ def PreConstructionDetailView(request, slug):
 
 @api_view(['GET'])
 def PreConstructionsCityView(request, slug):
+    #add filtering based on status, occupancy, project_type,price_starting_from as under
+    status = request.GET.get('status')
+    occupancy = request.GET.get('occupancy')
+    project_type = request.GET.get('project_type')
+    price_starting_from = request.GET.get('price_starting_from')
     city = City.objects.get(slug=slug)
     cityser = CitySerializer(city)
+
     preconstructions = PreConstruction.objects.filter(city__slug=slug)
+
+    if status:
+        preconstructions = preconstructions.filter(status=status)
+    if occupancy:
+        preconstructions = preconstructions.filter(occupancy=occupancy)
+    if project_type:
+        preconstructions = preconstructions.filter(project_type=project_type)
+    if price_starting_from:
+        preconstructions = preconstructions.filter(
+            price_starting_from__gte=price_starting_from)
+        
     serializer = PreConstructionSerializerSmall(preconstructions, many=True)
     return Response({"city": cityser.data, "preconstructions": serializer.data})
 
