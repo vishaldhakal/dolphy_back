@@ -72,11 +72,22 @@ class PreConstruction(models.Model):
     date_of_upload = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
+
+    @property
+    def status_order(self):
+        # Define the custom order for the 'status' field
+        order_mapping = {
+            "Selling": 1,
+            "Upcoming": 2,
+            "Sold out": 3,
+        }
+        return order_mapping.get(self.status, 4)
+
     def __str__(self):
         return self.project_name + " [ " + self.city.name+" ] "
 
     class Meta:
-        ordering = ('status','-last_updated')
+        ordering = ('status_order','-last_updated')
 
 
 class PreConstructionImage(models.Model):
