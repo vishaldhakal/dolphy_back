@@ -48,6 +48,12 @@ class PreConstructionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['last_updated']
 
+class PreConstructionSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreConstruction
+        fields = ['id','slug','project_name']
+        ordering = ['last_updated']
+
 
 class PreConstructionSerializerSmall(serializers.ModelSerializer):
     image = PreConstructionImageSerializer(many=True, read_only=True)
