@@ -25,6 +25,18 @@ class DeveloperListCreateView(generics.ListCreateAPIView):
     queryset = Developer.objects.all()
     serializer_class = DeveloperSerializer
 
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        name = data.get('name')
+        details = data.get('details')
+        website_link = data.get('website_link')
+        phone = data.get('phone')
+        slug = slugify(name)
+        developer = Developer.objects.create(
+            name=name, details=details, website_link=website_link, phone=phone, slug=slug)
+        serializer = DeveloperSerializer(developer)
+        return Response(serializer.data)
+
 
 class DeveloperRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Developer.objects.all()
@@ -38,10 +50,29 @@ class DeveloperRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         instance.details = request.data.get("details")
         instance.website_link = request.data.get('website_link')
         instance.phone = request.data.get('phone')
+        if instance.slug != slugify(request.data.get('name')):
+            if Developer.objects.filter(slug=slugify(request.data.get('name'))).exists():
+                instance.slug = slugify(request.data.get('name')) + "-" + str(instance.id)
+            else:
+                instance.slug = slugify(request.data.get('name'))
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
+
+@api_view(['GET'])
+def slugify_all_developers(request):
+    developers = Developer.objects.all()
+    for developer in developers:
+        developer.slug = slugify(developer.name)
+        developer.save()
+    return Response({"message": "done"})
+
+@api_view(['GET'])
+def PreConstructionsDeveloper(request, slug):
+    preconstructions = PreConstruction.objects.filter(developer__slug=slug)
+    serializer = PreConstructionSerializerSmall(preconstructions, many=True)
+    return Response(serializer.data)
 
 class CityListCreateView(generics.ListCreateAPIView):
     queryset = City.objects.all()

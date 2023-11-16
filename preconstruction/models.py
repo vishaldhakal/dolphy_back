@@ -8,6 +8,7 @@ from django.db.models import Case, When, Value, IntegerField
 class Developer(models.Model):
     image = models.FileField()
     name = models.CharField(max_length=500)
+    slug = models.CharField(max_length=1000, blank=True)
     phone = models.CharField(max_length=200, blank=True)
     website_link = models.TextField(blank=True)
     details = models.TextField()
