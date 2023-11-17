@@ -264,6 +264,7 @@ def PreConstructionsCityView(request, slug):
     if price_starting_from:
         preconstructions = preconstructions.filter(
             price_starting_from__gte=price_starting_from)
+
         
     serializer = PreConstructionSerializerSmall(preconstructions, many=True)
     return Response({"city": cityser.data, "preconstructions": serializer.data})

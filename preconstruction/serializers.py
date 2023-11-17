@@ -9,6 +9,12 @@ class DeveloperSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['name']
 
+class DeveloperSerializerSmall(serializers.ModelSerializer):
+    class Meta:
+        model = Developer
+        fields = ['id','name']
+        ordering = ['name']
+
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,7 +47,7 @@ class PreConstructionSerializer(serializers.ModelSerializer):
     image = PreConstructionImageSerializer(many=True, read_only=True)
     floorplan = PreConstructionFloorPlanSerializer(many=True, read_only=True)
     city = CitySerializer()
-    developer = DeveloperSerializer()
+    developer = DeveloperSerializerSmall()
 
     class Meta:
         model = PreConstruction
@@ -58,6 +64,7 @@ class PreConstructionSearchSerializer(serializers.ModelSerializer):
 class PreConstructionSerializerSmall(serializers.ModelSerializer):
     image = PreConstructionImageSerializer(many=True, read_only=True)
     city = CitySerializerSmall()
+    developer = DeveloperSerializer()
 
     class Meta:
         model = PreConstruction
