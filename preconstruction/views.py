@@ -70,9 +70,11 @@ def slugify_all_developers(request):
 
 @api_view(['GET'])
 def PreConstructionsDeveloper(request, slug):
+    developer = Developer.objects.get(slug=slug)
+    dev_serializer = DeveloperSerializer(developer)
     preconstructions = PreConstruction.objects.filter(developer__slug=slug)
     serializer = PreConstructionSerializerSmall(preconstructions, many=True)
-    return Response(serializer.data)
+    return Response({"developer": dev_serializer.data, "precons": serializer.data})
 
 class CityListCreateView(generics.ListCreateAPIView):
     queryset = City.objects.all()
