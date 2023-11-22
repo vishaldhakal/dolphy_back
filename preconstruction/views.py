@@ -314,6 +314,7 @@ class NewsListCreateView(generics.ListCreateAPIView):
 class NewsRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+    lookup_field = 'slug'
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -336,12 +337,6 @@ class NewsRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
                 instance.slug = slugify(request.data.get('news_title'))
         instance.save()
         serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-    
-    #retrive from slug
-    def retrieve(self, request, slug):
-        news = News.objects.get(slug=slug)
-        serializer = NewsSerializer(news)
         return Response(serializer.data)
 
 
