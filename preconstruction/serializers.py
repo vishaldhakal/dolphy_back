@@ -86,9 +86,6 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = '__all__'
         ordering = ['date_of_upload']
-        extra_kwargs = {
-            'slug': {'read_only': True},
-        }
 
 
 class FavouriteSerializer(serializers.ModelSerializer):

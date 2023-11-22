@@ -309,12 +309,20 @@ class NewsListCreateView(generics.ListCreateAPIView):
         )
         serializer = NewsSerializer(news)
         return Response(serializer.data)
+    
+    def list(self, request, *args, **kwargs):
+        city = request.GET.get('city')
+        if city:
+            news = News.objects.filter(city__slug=city)
+        else:
+            news = News.objects.all()
+        serializer = NewsSerializer(news, many=True)
+        return Response(serializer.data)
 
 
 class NewsRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    lookup_field = 'slug'
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -339,6 +347,11 @@ class NewsRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def news_detail(request, slug):
+    news = News.objects.get(slug=slug)
+    serializer = NewsSerializer(news)
+    return Response(serializer.data)
 
 class CityListCreateView(generics.ListCreateAPIView):
     queryset = City.objects.all()
