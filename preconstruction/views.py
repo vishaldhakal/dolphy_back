@@ -61,11 +61,11 @@ class DeveloperRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 
 @api_view(['GET'])
-def slugify_all_developers(request):
-    developers = Developer.objects.all()
-    for developer in developers:
-        developer.slug = slugify(developer.name)
-        developer.save()
+def slugify_all_news(request):
+    developers = News.objects.all()
+    for news in developers:
+        news.slug = slugify(news.news_title)
+        news.save()
     return Response({"message": "done"})
 
 @api_view(['GET'])
@@ -297,13 +297,15 @@ class NewsListCreateView(generics.ListCreateAPIView):
         news_thumbnail = data.get('news_thumbnail')
         news_description = data.get('news_description')
         news_link = data.get('news_link')
+        slug = slugify(news_title)
 
         news = News.objects.create(
             city=city,
             news_title=news_title,
             news_thumbnail=news_thumbnail,
             news_description=news_description,
-            news_link=news_link
+            news_link=news_link,
+            slug=slug
         )
         serializer = NewsSerializer(news)
         return Response(serializer.data)
@@ -327,8 +329,19 @@ class NewsRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         instance.news_description = request.data.get('news_description')
         instance.news_link = request.data.get('news_link')
         instance.city = city
+        if instance.slug != slugify(request.data.get('news_title')):
+            if Developer.objects.filter(slug=slugify(request.data.get('news_title'))).exists():
+                instance.slug = slugify(request.data.get('news_title')) + "-" + str(instance.id)
+            else:
+                instance.slug = slugify(request.data.get('news_title'))
         instance.save()
         serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+    #retrive from slug
+    def retrieve(self, request, slug):
+        news = News.objects.get(slug=slug)
+        serializer = NewsSerializer(news)
         return Response(serializer.data)
 
 
