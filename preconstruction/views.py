@@ -246,7 +246,7 @@ def PreConstructionDetailView(request, slug):
 @api_view(['GET'])
 def PreConstructionsCityView(request, slug):
     status = request.GET.get('status')
-    page_size = request.GET.get('page_size',30)
+    page_size = request.GET.get('page_size',60)
     occupancy = request.GET.get('occupancy')
     project_type = request.GET.get('project_type')
     price_starting_from = request.GET.get('price_starting_from')
