@@ -483,7 +483,7 @@ def ContactFormSubmission(request):
         subject = "Inquiry about " + \
             request.POST["proj_name"]+" in " + \
             request.POST["cityy"]+" - Dolphy"
-        emaill = "Homebaba <contact@dolphy.ca>"
+        emaill = "Dolphy <contactdolphy.ca@gmail.com>"
         headers = {'Reply-To': request.POST["email"]}
 
         name = request.POST["name"]
