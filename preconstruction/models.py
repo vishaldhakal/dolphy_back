@@ -78,6 +78,7 @@ class PreConstruction(models.Model):
 
     class Meta:
         ordering = [
+            '-last_updated',
             Case(
                 When(status="Selling", then=Value(1)),
                 When(status="Upcoming", then=Value(2)),
@@ -85,7 +86,6 @@ class PreConstruction(models.Model):
                 default=Value(4),
                 output_field=IntegerField(),
             ),
-            '-last_updated',
         ]
 
 
