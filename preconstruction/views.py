@@ -431,3 +431,81 @@ def get_all_precons(request):
     cities = PreConstruction.objects.all()
     serializer = PreConstructionSearchSerializer(cities, many=True)
     return Response(serializer.data)
+
+def validate_name(name):
+    """
+    Validates the name field.
+    Returns True if name is valid, False otherwise.
+    """
+    if not name:
+        return False
+    # Add additional name validation logic here if needed
+    return True
+
+
+def validate_email(email):
+    """
+    Validates the email field.
+    Returns True if email is valid, False otherwise.
+    """
+    if not email:
+        return False
+    if '@' not in email:
+        return False
+    # Add additional email validation logic here if needed
+    return True
+
+
+def validate_phone(phone):
+    """
+    Validates the phone field.
+    Returns True if phone is valid, False otherwise.
+    """
+    if not phone:
+        return False
+    # Add additional phone validation logic here if needed
+    return True
+
+
+def validate_message(message):
+    """
+    Validates the message field.
+    Returns True if message is valid, False otherwise.
+    """
+    if not message:
+        return False
+    # Add additional message validation logic here if needed
+    return True
+
+@api_view(["POST"])
+def ContactFormSubmission(request):
+    if request.method == "POST":
+        subject = "Inquiry about " + \
+            request.POST["proj_name"]+" in " + \
+            request.POST["cityy"]+" - Dolphy"
+        emaill = "Homebaba <contact@dolphy.ca>"
+        headers = {'Reply-To': request.POST["email"]}
+
+        name = request.POST["name"]
+        email = request.POST["email"]
+        phone = request.POST["phone"]
+        message = request.POST["message"]
+        realtor = request.POST["realtor"]
+
+        if validate_name(request.POST["name"]) and validate_email(request.POST["email"]) and validate_phone(request.POST["phone"]):
+            body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}\nIs a realtor?: {realtor}"
+            email = EmailMessage(
+                subject, body, emaill, ["milan@homebaba.ca"],
+                reply_to=[email], headers=headers
+            )
+            email.send(fail_silently=False)
+            return HttpResponse("Sucess")
+        else:
+            email = EmailMessage(
+                subject, body, emaill, ["milan@homebaba.ca"],
+                reply_to=[email], headers=headers
+            )
+            email.send(fail_silently=False)
+            return HttpResponse("Sucess")
+    else:
+        return HttpResponse("Not post req")
