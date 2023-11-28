@@ -245,8 +245,8 @@ def PreConstructionDetailView(request, slug):
 
 @api_view(['GET'])
 def PreConstructionsCityView(request, slug):
-    #add filtering based on status, occupancy, project_type,price_starting_from as under
     status = request.GET.get('status')
+    page_size = request.GET.get('page_size',30)
     occupancy = request.GET.get('occupancy')
     project_type = request.GET.get('project_type')
     price_starting_from = request.GET.get('price_starting_from')
@@ -254,6 +254,10 @@ def PreConstructionsCityView(request, slug):
     cityser = CitySerializer(city)
 
     preconstructions = PreConstruction.objects.filter(city__slug=slug)
+    #add pagination
+    paginator = PageNumberPagination()
+    paginator.page_size = page_size
+    preconstructions = paginator.paginate_queryset(preconstructions, request)
 
     if status:
         preconstructions = preconstructions.filter(status=status)
