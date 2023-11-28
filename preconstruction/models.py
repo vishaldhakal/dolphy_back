@@ -11,7 +11,7 @@ class Developer(models.Model):
     slug = models.CharField(max_length=1000, blank=True)
     phone = models.CharField(max_length=200, blank=True)
     website_link = models.TextField(blank=True)
-    details = models.TextField()
+    details = SummernoteTextField(blank=True)
 
     def __str__(self):
         return self.name
