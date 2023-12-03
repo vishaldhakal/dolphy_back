@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import DeveloperListCreateView,ContactFormSubmission,PreConstructionsDeveloper,news_detail, slugify_all_news,DeveloperRetrieveUpdateDeleteView, PreConstructionListCreateView, PreConstructionRetrieveUpdateDeleteView, EventListCreateView, EventRetrieveUpdateDeleteView, NewsListCreateView, NewsRetrieveUpdateDeleteView, FavouriteListCreateView, FavouriteRetrieveUpdateDeleteView, CityListCreateView, CityRetrieveUpdateDeleteView, PreConstructionDetailView, PreConstructionsCityView, delete_image, delete_floorplan, remove_last_part_of_slug, get_all_city, get_related_precons,get_all_precons
+from .views import DeveloperListCreateView,get_all_precons_city,ContactFormSubmission,PreConstructionsDeveloper,news_detail, slugify_all_news,DeveloperRetrieveUpdateDeleteView, PreConstructionListCreateView, PreConstructionRetrieveUpdateDeleteView, EventListCreateView, EventRetrieveUpdateDeleteView, NewsListCreateView, NewsRetrieveUpdateDeleteView, FavouriteListCreateView, FavouriteRetrieveUpdateDeleteView, CityListCreateView, CityRetrieveUpdateDeleteView, PreConstructionDetailView, PreConstructionsCityView, delete_image, delete_floorplan, remove_last_part_of_slug, get_all_city, get_related_precons,get_all_precons
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -53,6 +53,7 @@ urlpatterns = [
     path('contact-form-submission/', ContactFormSubmission, name='contact-form-submission'),
     path('all-city/', get_all_city, name='get-all-city'),
     path('all-precons/', get_all_precons, name='get-all-precons'),
+    path('all-precons-city/<str:slug>/', get_all_precons_city, name='get-all-precons-city'),
     path('city/<int:pk>/', CityRetrieveUpdateDeleteView.as_view(),
          name='city-retrieve-update-delete'),
     path('favourites/', FavouriteListCreateView.as_view(),
