@@ -32,7 +32,7 @@ class CitySerializerSmallSearch(serializers.ModelSerializer):
     preconstructions = serializers.SerializerMethodField()
     class Meta:
         model = City
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug','preconstructions']
 
     def get_preconstructions(self, obj):
         preconstructions = PreConstruction.objects.filter(city=obj)
