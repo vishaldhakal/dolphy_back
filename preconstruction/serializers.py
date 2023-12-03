@@ -28,6 +28,17 @@ class CitySerializerSmall(serializers.ModelSerializer):
         model = City
         fields = ['id', 'name', 'slug']
 
+class CitySerializerSmallSearch(serializers.ModelSerializer):
+    preconstructions = serializers.SerializerMethodField()
+    class Meta:
+        model = City
+        fields = ['id', 'name', 'slug']
+
+    def get_preconstructions(self, obj):
+        preconstructions = PreConstruction.objects.filter(city=obj)
+        serializer = PreConstructionSearchSerializer(preconstructions, many=True)
+        return serializer.data
+
 
 class PreConstructionImageSerializer(serializers.ModelSerializer):
     class Meta:
