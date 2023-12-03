@@ -428,9 +428,14 @@ def get_all_city(request):
 
 @api_view(['GET'])
 def get_all_precons(request):
-    cities = PreConstruction.objects.all()
-    serializer = PreConstructionSearchSerializer(cities, many=True)
+    cities = City.objects.all()
+    serializer = CitySerializerSmall(cities, many=True)
+    for city in cities:
+        precons = PreConstruction.objects.filter(city=city)
+        serializer2 = PreConstructionSerializerSmall(precons, many=True)
+        city.precons = serializer2.data
     return Response(serializer.data)
+
 
 def validate_name(name):
     """
@@ -509,3 +514,5 @@ def ContactFormSubmission(request):
             return HttpResponse("Sucess")
     else:
         return HttpResponse("Not post req")
+    
+
