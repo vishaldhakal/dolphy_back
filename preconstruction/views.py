@@ -257,7 +257,6 @@ def PreConstructionsCityView(request, slug):
     #add pagination
     paginator = PageNumberPagination()
     paginator.page_size = page_size
-    preconstructions = paginator.paginate_queryset(preconstructions, request)
 
     if status:
         preconstructions = preconstructions.filter(status=status)
@@ -269,6 +268,7 @@ def PreConstructionsCityView(request, slug):
         preconstructions = preconstructions.filter(
             price_starting_from__gte=price_starting_from)
 
+    preconstructions = paginator.paginate_queryset(preconstructions, request)
         
     serializer = PreConstructionSerializerSmall(preconstructions, many=True)
     return Response({"city": cityser.data, "preconstructions": serializer.data})
