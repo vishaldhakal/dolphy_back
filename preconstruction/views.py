@@ -502,7 +502,7 @@ def ContactFormSubmission(request):
         if validate_name(request.POST["name"]) and validate_email(request.POST["email"]) and validate_phone(request.POST["phone"]):
             body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}\nIs a realtor?: {realtor}"
             email = EmailMessage(
-                subject, body, emaill, ["milan@homebaba.ca"],
+                subject, body, emaill, ["hello@dolphy.ca"],
                 reply_to=[email], headers=headers
             )
             email.send(fail_silently=False)
