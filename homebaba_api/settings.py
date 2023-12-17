@@ -203,5 +203,5 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-relay.brevo.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'contactdolphy.ca@gmail.com'
-EMAIL_HOST_PASSWORD = 'DbFpBjRwm7xZPd54'
+EMAIL_HOST_USER = 'contact@homebaba.ca'
+EMAIL_HOST_PASSWORD = 'QN9CO3IzLxjbhPS8'

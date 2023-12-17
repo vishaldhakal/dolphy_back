@@ -509,7 +509,7 @@ def ContactFormSubmission(request):
             return HttpResponse("Sucess")
         else:
             email = EmailMessage(
-                subject, body, emaill, ["milan@homebaba.ca"],
+                subject, body, emaill, ["hello@dolphy.ca"],
                 reply_to=[email], headers=headers
             )
             email.send(fail_silently=False)
