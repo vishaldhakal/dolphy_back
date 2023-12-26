@@ -201,7 +201,7 @@ JAZZMIN_SETTINGS = {
 
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_HOST = 'smtp.mailersend.net'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'contact@homebaba.ca'
-EMAIL_HOST_PASSWORD = 'QN9CO3IzLxjbhPS8'
+EMAIL_HOST_USER = 'MS_gT723c@dolphy.ca'
+EMAIL_HOST_PASSWORD = 'OepFUZrVBxno3r0P'
