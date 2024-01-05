@@ -438,6 +438,12 @@ def get_all_precons_city(request,slug):
     serializer = CitySerializerSmallSearch(cities)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def get_all_precons_search(request):
+    precons = PreConstruction.objects.all()
+    serializer = PreConstructionSearchSerializer2(precons, many=True)
+    return Response(serializer.data)
+
 
 def validate_name(name):
     """

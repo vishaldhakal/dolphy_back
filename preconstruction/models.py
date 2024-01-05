@@ -74,7 +74,7 @@ class PreConstruction(models.Model):
 
 
     def __str__(self):
-        return self.project_name + " [ " + self.city.name+" ] "
+        return self.project_name
 
     class Meta:
         ordering = [
