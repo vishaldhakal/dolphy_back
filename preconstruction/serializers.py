@@ -73,9 +73,10 @@ class PreConstructionSearchSerializer(serializers.ModelSerializer):
 
 class PreConstructionSearchSerializer2(serializers.ModelSerializer):
     name = serializers.StringRelatedField()
+    typee = "city"
     class Meta:
         model = PreConstruction
-        fields = ['id','slug','name']
+        fields = ['id','slug','name','typee']
         ordering = ['last_updated']
 
 
