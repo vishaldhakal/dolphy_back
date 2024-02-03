@@ -37,6 +37,7 @@ class PreConstruction(models.Model):
     STATUS_CHOICES = [
         ("Upcoming", "Upcoming"),
         ("Selling", "Selling"),
+        ("Archived", "Archived"),
         ("Planning Phase", "Planning Phase"),
         ("Sold out", "Sold out")
     ]
