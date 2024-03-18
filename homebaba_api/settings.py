@@ -201,7 +201,8 @@ JAZZMIN_SETTINGS = {
 
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailersend.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'MS_gT723c@dolphy.ca'
-EMAIL_HOST_PASSWORD = 'OepFUZrVBxno3r0P'
+EMAIL_HOST = 'smtp.elasticemail.com'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'info@dolphy.ca'
+EMAIL_HOST_PASSWORD = '200D0D68B720FB3646E715455E75A0F2CCA3'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
