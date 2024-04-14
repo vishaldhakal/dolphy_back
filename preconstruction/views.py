@@ -444,7 +444,7 @@ def get_all_precons_search(request):
     serializer = PreConstructionSearchSerializer2(precons, many=True)
 
     cities = City.objects.all()
-    serializer2 = CitySerializerSmall(cities)
+    serializer2 = CitySerializerSmall(cities,many=True)
 
     return Response({"projects": serializer.data, "cities": serializer2.data})
 
