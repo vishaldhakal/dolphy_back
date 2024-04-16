@@ -28,6 +28,11 @@ class CitySerializerSmall(serializers.ModelSerializer):
         model = City
         fields = ['id', 'name', 'slug']
 
+class CitySerializerSmallestt(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['slug']
+
 class CitySerializerSmallSearch(serializers.ModelSerializer):
     preconstructions = serializers.SerializerMethodField()
     class Meta:
@@ -66,9 +71,10 @@ class PreConstructionSerializer(serializers.ModelSerializer):
         ordering = ['last_updated']
 
 class PreConstructionSearchSerializer(serializers.ModelSerializer):
+    city = CitySerializerSmallestt()
     class Meta:
         model = PreConstruction
-        fields = ['id','slug','project_name']
+        fields = ['id','slug','project_name','city']
         ordering = ['last_updated']
 
 class PreConstructionSearchSerializer2(serializers.ModelSerializer):
