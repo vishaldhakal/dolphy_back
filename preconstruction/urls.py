@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import DeveloperListCreateView,get_all_precons_search,get_all_precons_city,ContactFormSubmission,PreConstructionsDeveloper,news_detail, slugify_all_news,DeveloperRetrieveUpdateDeleteView, PreConstructionListCreateView, PreConstructionRetrieveUpdateDeleteView, EventListCreateView, EventRetrieveUpdateDeleteView, NewsListCreateView, NewsRetrieveUpdateDeleteView, FavouriteListCreateView, FavouriteRetrieveUpdateDeleteView, CityListCreateView, CityRetrieveUpdateDeleteView, PreConstructionDetailView, PreConstructionsCityView, delete_image, delete_floorplan, remove_last_part_of_slug, get_all_city, get_related_precons,get_all_precons
+from .views import DeveloperListCreateView,get_all_precons_search,get_all_precons_city,ContactFormSubmission,PreConstructionsDeveloper,news_detail, slugify_all_news,DeveloperRetrieveUpdateDeleteView, PreConstructionListCreateView, PreConstructionRetrieveUpdateDeleteView, EventListCreateView, EventRetrieveUpdateDeleteView, NewsListCreateView, NewsRetrieveUpdateDeleteView, FavouriteListCreateView, FavouriteRetrieveUpdateDeleteView, CityListCreateView, CityRetrieveUpdateDeleteView, PreConstructionDetailView, PreConstructionsCityView, delete_image, delete_floorplan, remove_last_part_of_slug, get_all_city, get_related_precons,get_all_precons,getlatlong
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -50,6 +50,7 @@ urlpatterns = [
     path('news/<str:slug>/', news_detail,
          name='news-detail'),
     path('city/', CityListCreateView.as_view(), name='city-list-create'),
+    path('get-codes/', getlatlong, name='getlatlong'),
     path('contact-form-submission/', ContactFormSubmission, name='contact-form-submission'),
     path('all-city/', get_all_city, name='get-all-city'),
     path('all-precons-search/', get_all_precons_search, name='get-all-precons-search'),

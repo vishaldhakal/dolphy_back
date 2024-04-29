@@ -19,6 +19,8 @@ import datetime
 from rest_framework import generics
 from .serializers import *
 from django.utils.text import slugify
+from geopy.geocoders import Nominatim
+
 
 
 class DeveloperListCreateView(generics.ListCreateAPIView):
@@ -528,3 +530,13 @@ def ContactFormSubmission(request):
         return HttpResponse("Not post req")
     
 
+
+def getlatlong(request):
+    add = request.GET.get("address")
+    loc = Nominatim(user_agent="Geopy Library")
+
+    # entering the location name
+    getLoc = loc.geocode(add)
+
+    # printing latitude and longitude
+    return JsonResponse({'lat':getLoc.latitude,'long':getLoc.longitude})
