@@ -47,7 +47,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = 'farah_api.urls'
+ROOT_URLCONF = 'homebaba_api.urls'
 DATA_UPLOAD_MAX_MEMORY_SIZE = None
 TEMPLATES = [
     {
@@ -65,29 +65,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'farah_api.wsgi.application'
+WSGI_APPLICATION = 'homebaba_api.wsgi.application'
 
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = None
-
+""" 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+ """
 
-
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'farah',
-        'USER': 'farah_admin',
-        'PASSWORD': 'farahadminpassword',
+        'NAME': 'dolphy',
+        'USER': 'dolphy_admin',
+        'PASSWORD': 'dolphyadminpassword',
         'HOST': 'localhost',
         'PORT': '',
     }
-} """
+}
 
 
 # Password validation
@@ -198,7 +198,6 @@ JAZZMIN_SETTINGS = {
     # - carousel
     "changeform_format": "horizontal_tabs",
 }
-
 
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
